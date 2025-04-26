@@ -1,16 +1,19 @@
 {
-    "name": "project-js-astro-weight",
-    "version": "0.1.0",
-    "scripts": {
-        "start": "static -H \"{\\\"Cache-Control\\\": \\\"no-cache, must-revalidate\\\"}\"",
-        "test": "mocha test --exit"
-    },
-    "dependencies": {
-        "axios": "^0.27.2",
-        "chai": "^4.0.2",
-        "express": "^4.15.3",
-        "mocha": "^10.0.0",
-        "nightmare": "^2.8.0",
-        "node-static": "^0.7.9"
-    }
+  "name": "astro-weight-calculator",
+  "version": "1.0.0",
+  "description": "Astro Weight Calculator using Vite and Vitest",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:ui": "vitest"
+  },
+  "devDependencies": {
+    "jsdom": "^25.0.1",
+    "vite": "^6.0.3",
+    "vitest": "^2.1.8",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "^6.6.3"
+  }
 }
