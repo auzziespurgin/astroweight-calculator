@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { fireEvent } from '@testing-library/dom';
 import { astroWeightCalculator, addPlanetOptions } from '../src/main.js';
 import planetData from '../src/expected-planets';
-import fs from 'fs';
+import q from 'fs';
 import path from 'path';
 
 beforeEach(() => {

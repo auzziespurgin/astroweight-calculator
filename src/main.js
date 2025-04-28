@@ -1,4 +1,17 @@
-// Global array containing planets and their gravity factors relative to Earth
+// ==========================================
+// Core Setup - Do not modify this section
+// ==========================================
+
+// This ensures that your JavaScript code only runs after the entire HTML page has loaded.
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', () => {
+    addPlanetOptions(); // Automatically populate the dropdown menu when the page loads
+    document.getElementById('calculate-button').addEventListener('click', astroWeightCalculator); // Attach the button click to run your main calculator function
+  });
+}
+
+// Global array containing planet names and their gravity factors relative to Earth.
+// You will use this data to populate your dropdown menu and to calculate adjusted weights.
 const planetData = [
   ['Pluto', 0.06],
   ['Neptune', 1.148],
@@ -13,49 +26,44 @@ const planetData = [
   ['Sun', 27.9]
 ];
 
-// Calculates the user's weight on a selected planet
-export function calculateWeight(weight, planet) {
-  for (let i = 0; i < planetData.length; i++) {
-    const [planetName, gravity] = planetData[i];
-    if (planetName === planet) {
-      return gravity * weight;
-    }
-  }
-}
+// ==========================================
+// Student Task Section - Complete the functions below
+// ==========================================
 
-// Calculates and displays the user's weight when the "Calculate" button is clicked
-export function astroWeightCalculator() {
-  const weightInput = document.getElementById('user-weight');
-  const planetsSelect = document.getElementById('planets');
-  const output = document.getElementById('output');
-
-  const weight = parseFloat(weightInput.value);
-  const planet = planetsSelect.value;
-
-
-  const calculatedWeight = calculateWeight(weight, planet);
-
-  const formattedWeight = calculatedWeight.toFixed(2).replace(/\.00$/, '');
-  output.innerText = `If you were on ${planet}, you would weigh ${formattedWeight}lbs!`;
-
-}
-
-// Adds planet options to the planets <select> dropdown menu
+// This function should add <option> elements to the <select> dropdown menu.
+// You will be using the data from the planetData array above.
 export function addPlanetOptions() {
-  const planetsSelect = document.getElementById('planets');
-
-  planetData.forEach(([planetName]) => {
-    const option = document.createElement('option');
-    option.value = planetName;
-    option.textContent = planetName;
-    planetsSelect.appendChild(option);
-  });
+  // TODO:
+  // 1. Get a reference to the <select> element with id="planets".
+  // 2. Loop through the planetData array.
+  // 3. For each planet:
+  //    - Create a new <option> element.
+  //    - Set the option's value and textContent to the planet's name.
+  //    - Append the option element to the <select> element.
 }
 
-// Setup code that runs once the HTML document is fully loaded
-if (typeof window !== 'undefined') {
-  window.addEventListener('DOMContentLoaded', () => {
-    addPlanetOptions();
-    document.getElementById('calculate-button').addEventListener('click', astroWeightCalculator);
-  });
+// This function should calculate the user's weight on the selected planet.
+// It will use the input weight and the gravity factor from the planetData array.
+export function calculateWeight(weight, planet) {
+  // TODO:
+  // 1. Loop through the planetData array.
+  // 2. If the planet name matches the selected planet:
+  //    - Multiply the input weight by the gravity factor.
+  //    - Return the calculated weight.
+  // 3. If no matching planet is found, return null.
+}
+
+// This function is called when the user clicks the "Calculate" button.
+// It reads the user's input and selected planet, calculates the new weight,
+// and updates the page with the result.
+export function astroWeightCalculator() {
+  // TODO:
+  // 1. Get references to the input field (id="user-weight"), the dropdown menu (id="planets"), and the output paragraph (id="output").
+  // 2. Read the user's input weight and selected planet.
+  // 3. Validate the input:
+  //    - If the weight is missing or invalid, or no planet is selected, clear the output and return.
+  // 4. Call calculateWeight() to get the new weight.
+  // 5. If a valid weight is returned:
+  //    - Display a message like: "If you were on Mars, you would weigh 38.95lbs!" inside the output paragraph.
+  //    - Format the number to two decimal places, and remove trailing ".00" if it exists.
 }
