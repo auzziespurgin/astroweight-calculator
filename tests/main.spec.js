@@ -1,15 +1,35 @@
-// tests/main.spec.js
 const { test, expect } = require('@playwright/test');
+const nodeStatic = require('node-static');
+const http = require('http');
 
-const url = 'http://localhost:3000/index.html';
+const PORT = 3000;
+const url = `http://localhost:${PORT}/index.html`;
 
+let server;
 
+test.beforeAll(async () => {
+  const file = new nodeStatic.Server('./', { cache: 0 });
+  server = http.createServer((req, res) => {
+    req.addListener('end', () => {
+      file.serve(req, res);
+    }).resume();
+  });
+
+  await new Promise(resolve => server.listen(PORT, resolve));
+  console.log(`Test server running at ${url}`);
+});
+
+test.afterAll(() => {
+  server.close();
+});
+
+// Check response
 test.describe('Astro Weight Calculator', () => {
   test('should load successfully', async ({ request }) => {
     const response = await request.get(url);
     expect(response.status()).toBe(200);
   });
-})
+});
 
 test.describe('Astro Weight Calculator', () => {
   test.beforeEach(async ({ page }) => {

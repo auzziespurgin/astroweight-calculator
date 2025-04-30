@@ -2,12 +2,12 @@
   "name": "astro-weight-calculator",
   "version": "1.0.0",
   "scripts": {
-    "start": "npx serve .",
-    "test": "playwright test",
+    "start": "npx node-static . -p 3000",
+    "test": "npx playwright test",
     "postinstall": "npx playwright install"
   },
   "devDependencies": {
     "@playwright/test": "^1.52.0",
-    "serve": "^14.2.4"
+    "node-static": "0.7.11"
   }
 }
