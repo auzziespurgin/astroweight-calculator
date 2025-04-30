@@ -1,3 +1,4 @@
-node_modules
 .DS_Store
-solution.js
+node_modules
+test-results
+solutions/

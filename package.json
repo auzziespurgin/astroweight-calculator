@@ -1,20 +1,13 @@
 {
   "name": "astro-weight-calculator",
   "version": "1.0.0",
-  "description": "Astro Weight Calculator using Vite and Vitest",
-  "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "test": "vitest --ui"
+    "start": "npx serve .",
+    "test": "playwright test",
+    "postinstall": "npx playwright install"
   },
   "devDependencies": {
-    "jsdom": "^26.1.0",
-    "vite": "^6.3.3",
-    "vitest": "^3.1.2",
-    "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
-    "@vitest/ui":"3.1.2"
+    "@playwright/test": "^1.52.0",
+    "serve": "^14.2.4"
   }
 }

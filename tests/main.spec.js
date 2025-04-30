@@ -1,67 +1,61 @@
-import { describe, it, expect, beforeEach } from 'vitest';
-import { fireEvent } from '@testing-library/dom';
-import { astroWeightCalculator, addPlanetOptions } from '../src/main.js';
-import planetData from '../src/expected-planets';
-import q from 'fs';
-import path from 'path';
+// tests/main.spec.js
+const { test, expect } = require('@playwright/test');
 
-beforeEach(() => {
-  const htmlPath = path.resolve(__dirname, '../public/index.html');
-  const html = fs.readFileSync(htmlPath, 'utf-8');
-  document.body.innerHTML = html;
+const url = 'http://localhost:3000/index.html';
 
-  // Populate dropdown after HTML is loaded
-  addPlanetOptions();
 
-  // Attach event listener manually
-  document.getElementById('calculate-button').addEventListener('click', astroWeightCalculator);
-});
+test.describe('Astro Weight Calculator', () => {
+  test('should load successfully', async ({ request }) => {
+    const response = await request.get(url);
+    expect(response.status()).toBe(200);
+  });
+})
 
-describe('Astro Weight Calculator - Basic Elements', () => {
-  it('should have an <input> with id="user-weight"', () => {
-    const input = document.getElementById('user-weight');
-    expect(input).toBeTruthy();
-    expect(input.tagName.toLowerCase()).toBe('input');
+test.describe('Astro Weight Calculator', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(url);
   });
 
-  it('should have a <select> with id="planets"', () => {
-    const select = document.getElementById('planets');
-    expect(select).toBeTruthy();
-    expect(select.tagName.toLowerCase()).toBe('select');
+  // Element presence tests
+  test('should load input element with id="user-weight"', async ({ page }) => {
+    await expect(page.locator('#user-weight')).toBeVisible();
   });
 
-  it('should have a <p> with id="output"', () => {
-    const output = document.getElementById('output');
-    expect(output).toBeTruthy();
-    expect(output.tagName.toLowerCase()).toBe('p');
+  test('should load select element with id="planets"', async ({ page }) => {
+    await expect(page.locator('#planets')).toBeVisible();
   });
 
-  it('should have a <button> with id="calculate-button"', () => {
-    const button = document.getElementById('calculate-button');
-    expect(button).toBeTruthy();
-    expect(button.tagName.toLowerCase()).toBe('button');
+  test('should load button element with id="calculate-button"', async ({ page }) => {
+    await expect(page.locator('#calculate-button')).toBeVisible();
   });
-});
 
-describe('Astro Weight Calculator - Behavior Checks', () => {
-  planetData.forEach(([planetName, gravity]) => {
-    it(`should calculate correct weight for ${planetName}`, async () => {
-      const weightInput = document.getElementById('user-weight');
-      const planetsSelect = document.getElementById('planets');
-      const output = document.getElementById('output');
-      const calculateButton = document.getElementById('calculate-button');
+  test('should load output element with id="output"', async ({ page }) => {
+    await expect(page.locator('#output')).toBeAttached();
+  });
 
-      fireEvent.input(weightInput, { target: { value: '100' } });
-      fireEvent.change(planetsSelect, { target: { value: planetName } });
-      fireEvent.click(calculateButton);
+  // Full integration tests
+  const testCases = [
+    ['Pluto', '100', '6.00'],
+    ['Neptune', '100', '114.80'],
+    ['Uranus', '100', '91.70'],
+    ['Saturn', '100', '113.90'],
+    ['Jupiter', '100', '264.00'],
+    ['Mars', '100', '38.95'],
+    ['Moon', '100', '16.55'],
+    ['Earth', '100', '100.00'],
+    ['Venus', '100', '90.32'],
+    ['Mercury', '100', '37.70'],
+    ['Sun', '100', '2790.00']
+  ];
 
-      await new Promise((r) => setTimeout(r, 10)); // Allow time for DOM update
+  for (const [planet, weight, expected] of testCases) {
+    test(`should show correct result for ${planet}`, async ({ page }) => {
+      await page.fill('#user-weight', weight);
+      await page.selectOption('#planets', { label: planet });
+      await page.click('#calculate-button');
 
-      const expectedWeight = (gravity * 100).toFixed(2).replace(/\.00$/, '');
-      const expectedText = `If you were on ${planetName}, you would weigh ${expectedWeight}lbs!`;
-
-      const actualText = output?.innerText?.trim();
-      expect(actualText).toBe(expectedText);
+      const output = await page.locator('#output').textContent();
+      expect(output).toContain(`If you were on ${planet}, you would weigh ${expected}lbs!`);
     });
-  });
+  }
 });
