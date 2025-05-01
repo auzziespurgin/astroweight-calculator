@@ -2,7 +2,7 @@ const { test, expect } = require('@playwright/test');
 const nodeStatic = require('node-static');
 const http = require('http');
 
-const PORT = 3000;
+const PORT = 8888;
 const url = `http://localhost:${PORT}/index.html`;
 
 let server;
@@ -37,20 +37,28 @@ test.describe('Astro Weight Calculator', () => {
   });
 
   // Element presence tests
-  test('should load input element with id="user-weight"', async ({ page }) => {
-    await expect(page.locator('#user-weight')).toBeVisible();
+  test('should have an <input> element with id="user-weight"', async ({ page }) => {
+    const locator = page.locator('input#user-weight');
+    await expect(locator).toHaveCount(1);
+    await expect(locator).toBeVisible();
   });
 
-  test('should load select element with id="planets"', async ({ page }) => {
-    await expect(page.locator('#planets')).toBeVisible();
+  test('should have a <select> element with id="planets"', async ({ page }) => {
+    const locator = page.locator('select#planets');
+    await expect(locator).toHaveCount(1);
+    await expect(locator).toBeVisible();
   });
 
-  test('should load button element with id="calculate-button"', async ({ page }) => {
-    await expect(page.locator('#calculate-button')).toBeVisible();
+  test('should have a <button> element with id="calculate-button"', async ({ page }) => {
+    const locator = page.locator('button#calculate-button');
+    await expect(locator).toHaveCount(1);
+    await expect(locator).toBeVisible();
   });
 
-  test('should load output element with id="output"', async ({ page }) => {
-    await expect(page.locator('#output')).toBeAttached();
+  test('should have a <p> element with id="output"', async ({ page }) => {
+    const locator = page.locator('p#output');
+    await expect(locator).toHaveCount(1);
+    await expect(locator).toBeAttached();
   });
 
   // Full integration tests
