@@ -7,6 +7,8 @@ const url = `http://localhost:${PORT}/index.html`;
 
 let server;
 
+test.setTimeout(5000);
+
 test.beforeAll(async () => {
   const file = new nodeStatic.Server('./', { cache: 0 });
   server = http.createServer((req, res) => {
