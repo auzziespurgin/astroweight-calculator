@@ -1,4 +1,4 @@
-const { test, expect } = require('@playwright/test');
+const { test, expect, describe } = require('@playwright/test');
 const nodeStatic = require('node-static');
 const http = require('http');
 
@@ -16,52 +16,54 @@ test.beforeAll(async () => {
   });
 
   await new Promise(resolve => server.listen(PORT, resolve));
-  console.log(`Test server running at ${url}`);
+
+  if (process.env.PLAYWRIGHT_WORKER_INDEX === '0') {
+    console.log(`Test server running at ${url}`);
+  }
 });
 
 test.afterAll(() => {
   server.close();
 });
 
-// Check response
-test.describe('Astro Weight Calculator', () => {
+describe('Server Setup', () => {
   test('should load successfully', async ({ request }) => {
     const response = await request.get(url);
     expect(response.status()).toBe(200);
   });
 });
 
-test.describe('Astro Weight Calculator', () => {
+describe('HTML', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(url);
   });
 
-  // Element presence tests
-  test('should have an <input> element with id="user-weight"', async ({ page }) => {
+  test('should contain an <input> element with an of "user-weight"', async ({ page }) => {
     const locator = page.locator('input#user-weight');
     await expect(locator).toHaveCount(1);
     await expect(locator).toBeVisible();
   });
 
-  test('should have a <select> element with id="planets"', async ({ page }) => {
+  test('should contain a <select> element with an id of "planets"', async ({ page }) => {
     const locator = page.locator('select#planets');
     await expect(locator).toHaveCount(1);
     await expect(locator).toBeVisible();
   });
 
-  test('should have a <button> element with id="calculate-button"', async ({ page }) => {
+  test('should contain a <button> element with an id of "calculate-button"', async ({ page }) => {
     const locator = page.locator('button#calculate-button');
     await expect(locator).toHaveCount(1);
     await expect(locator).toBeVisible();
   });
 
-  test('should have a <p> element with id="output"', async ({ page }) => {
+  test('should contain a <p> element with an id of "output"', async ({ page }) => {
     const locator = page.locator('p#output');
     await expect(locator).toHaveCount(1);
     await expect(locator).toBeAttached();
   });
+});
 
-  // Full integration tests
+describe('Integration', () => {
   const testCases = [
     ['Pluto', '100', '6.00'],
     ['Neptune', '100', '114.80'],
@@ -75,6 +77,10 @@ test.describe('Astro Weight Calculator', () => {
     ['Mercury', '100', '37.70'],
     ['Sun', '100', '2790.00']
   ];
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto(url);
+  });
 
   for (const [planet, weight, expected] of testCases) {
     test(`should show correct result for ${planet}`, async ({ page }) => {
