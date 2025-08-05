@@ -40,7 +40,7 @@ describe('HTML', () => {
     await page.goto(url);
   });
 
-  test('should contain an <input> element with an of "user-weight"', async ({ page }) => {
+  test('should contain an <input> element with an id of "user-weight"', async ({ page }) => {
     const locator = page.locator('input#user-weight');
     await expect(locator).toHaveCount(1);
     await expect(locator).toBeVisible();
