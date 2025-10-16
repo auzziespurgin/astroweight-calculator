@@ -1,0 +1,43 @@
+body {
+  background-color: rgb(17, 10, 82);
+  color: rgb(228, 236, 236);
+  font-family: sans-serif;
+  max-width: 1200px;
+  margin: 5%;
+  text-align: center;
+}
+
+h1, #calculate-button {
+  text-align: center;
+}
+
+#planets {
+  display: inline-block;
+  text-align-last: left;
+  width: 39%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.columns, #user-weight {
+  display: inline-block;
+  text-align: center;
+  width: 39%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+#remove-pluto {
+  text-align-last: left;
+  margin-left: 55%;
+}
+
+.custom-planet {
+  display: inline-block;
+  width: 60%;
+  outline: none;
+}
+
+#new-planet-name, #new-planet-multiplier {
+  width: 25%;
+}
