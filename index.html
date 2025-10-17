@@ -15,7 +15,7 @@
       <p class="columns">Enter your Weight:</p>
       <p class="columns">Select a Planet:</p>
       <form id="main-input">
-        <input id="user-weight" type="text" inputmode="numeric" pattern="^(\d+(\.\d{1,2})?|\.\d{1,2})$" title="Numbers & Decimals Only" maxlength="12" placeholder="Weight (lbs)"/>
+        <input id="user-weight" type="text" inputmode="numeric" title="Numbers & Decimals Only" maxlength="12" placeholder="Weight (lbs)" required/>
         <select id="planets">
           <!--
           <option value="" class="menu"></option>
@@ -32,7 +32,7 @@
       <form id="custom-planet">
         <input id="reveal-form" type="checkbox"><label for="reveal-form">Add Custom Planet?</label>
         <input id="new-planet-name" class="hide" type="text" maxlength="16" placeholder="Planet Name" required>
-        <input id="new-planet-multiplier" class="hide" type="text" inputmode="numeric" pattern="^(\d+(\.\d{1,2})?|\.\d{1,2})$" title="Numbers & Decimals Only" maxlength="10" placeholder="Weight Multiplier" required>
+        <input id="new-planet-multiplier" class="hide" type="text" inputmode="numeric" title="Numbers & Decimals Only" maxlength="10" placeholder="Weight Multiplier" required>
         <button id="add-button" class="hide" type="button" onclick=addCustom()>Add</button>
       </form>
     </div>
