@@ -9,26 +9,31 @@
 
 <body>
   <script src="main.js" charset="utf-8" defer></script>
-  <h1>Astro Weight Calculator</h1>
-  <div>
-    <p class="columns">Enter your Weight:</p>
-    <p class="columns">Select a Planet:</p>
-    <form id="main-input">
-      <input id="user-weight" type="text" inputmode="numeric" pattern="^(\d+(\.\d{1,2})?|\.\d{1,2})$" title="Numbers & Decimals Only" maxlength="12" placeholder="Weight (lbs)"/>
-      <select id="planets">
-	      <option value="" class="menu"></option>
-      </select>
-      <p><input id="remove-pluto" type="checkbox">Remove Pluto?</p>
-    </form>
-  </div>
-  <p id="output"></p>
-  <button id="calculate-button" type="button" form="main-input" onclick=handleClickEvent(event)>Calculate</button>
-  <div>
-    <form id="custom-planet">
-      <input id="reveal-form" type="checkbox">Add Custom Planet?
-      <input id="new-planet-name" class="hide" type="text" maxlength="16" placeholder="Planet Name" required>
-      <input id="new-planet-multiplier" class="hide" type="text" inputmode="numeric" pattern="^(\d+(\.\d{1,2})?|\.\d{1,2})$" title="Numbers & Decimals Only" maxlength="10" placeholder="Weight Multiplier" required>
-      <button id="add-button" class="hide" type="submit">Add</button>
+  <div class="window">
+    <h1>Astro Weight Calculator</h1>
+    <div>
+      <p class="columns">Enter your Weight:</p>
+      <p class="columns">Select a Planet:</p>
+      <form id="main-input">
+        <input id="user-weight" type="text" inputmode="numeric" pattern="^(\d+(\.\d{1,2})?|\.\d{1,2})$" title="Numbers & Decimals Only" maxlength="12" placeholder="Weight (lbs)"/>
+        <select id="planets">
+          <option value="" class="menu"></option>
+        </select>
+        <p><input id="remove-pluto" type="checkbox">Remove Pluto?</p>
+      </form>
+    </div>
+    <div class="centre">
+      <p id="output"></p>
+      <button id="calculate-button" type="button" form="main-input" onclick=handleClickEvent(event)>Calculate</button>
+    </div>
+    <div>
+      <form id="custom-planet">
+        <input id="reveal-form" type="checkbox">Add Custom Planet?
+        <input id="new-planet-name" class="hide" type="text" maxlength="16" placeholder="Planet Name" required>
+        <input id="new-planet-multiplier" class="hide" type="text" inputmode="numeric" pattern="^(\d+(\.\d{1,2})?|\.\d{1,2})$" title="Numbers & Decimals Only" maxlength="10" placeholder="Weight Multiplier" required>
+        <button id="add-button" class="hide" type="submit">Add</button>
+      </form>
+    </div>
   </div>
 </body>
 
