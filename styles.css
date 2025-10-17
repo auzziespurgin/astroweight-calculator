@@ -32,12 +32,20 @@ h1, #calculate-button {
   margin-left: 55%;
 }
 
-.custom-planet {
+#custom-planet {
   display: inline-block;
+  text-align: left;
   width: 60%;
-  outline: none;
 }
 
 #new-planet-name, #new-planet-multiplier {
   width: 25%;
+}
+
+input[type="checkbox"]:checked ~ .hide {
+  visibility: visible;
+}
+
+.hide {
+  visibility: hidden;
 }
