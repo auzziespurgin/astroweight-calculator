@@ -13,13 +13,27 @@ const planets = [
 ];
 
 const planetDropdown = document.getElementById("planets");
+populateDropdown();
 
-planets.forEach(planet => {
-	const option = document.createElement("option");
-	option.value = planet[0];
-	option.textContent = planet[0];
-        planetDropdown.appendChild(option);
-});
+// add secondary array for custom planets to append inside function
+
+function populateDropdown() {
+        planetDropdown.replaceChildren();
+        const check = document.getElementById("remove-pluto").checked;
+        let planetList = [];
+        planetList = check === true ? planets.slice(1) : planets
+        planetList.forEach(planet => {
+                const planetName = planet[0];
+                const option = document.createElement("option");
+                option.value = planetName;
+                option.textContent = planetName;
+                planetDropdown.insertBefore(option,planetDropdown.firstChild); // Add options to top of the list instead of the bottom
+        //        planetDropdown.appendChild(option);
+        });
+        planetDropdown.insertBefore(document.createElement("option"),planetDropdown.firstChild);
+        planetDropdown.value = "";
+};
+
 
 function calculateWeight(weight, planetName) {
 	return (weight * planets[planets.findIndex((elem) => planetName===elem[0])][1]);
