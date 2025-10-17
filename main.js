@@ -12,16 +12,15 @@ const planets = [
         ['Sun', 27.9]
 ];
 
+let planetList = [];
+
 const planetDropdown = document.getElementById("planets");
 populateDropdown();
-
-// add secondary array for custom planets to append inside function
 
 function populateDropdown() {
         planetDropdown.replaceChildren();
         const check = document.getElementById("remove-pluto").checked;
-        let planetList = [];
-        planetList = check === true ? planets.slice(1) : planets
+        planetList = check === true ? planets.slice(1) : planets;
         planetList.forEach(planet => {
                 const planetName = planet[0];
                 const option = document.createElement("option");
@@ -34,16 +33,21 @@ function populateDropdown() {
         planetDropdown.value = "";
 };
 
-
 function calculateWeight(weight, planetName) {
-	return (weight * planets[planets.findIndex((elem) => planetName===elem[0])][1]);
+	return (weight * planetList[planetList.findIndex((elem) => planetName===elem[0])][1]);
 };
 
-function handleClickEvent(event) {
-        event.preventDefault();
+function handleClickEvent() {
 	const userWeight = document.getElementById("user-weight").value;
 	const planetName = document.getElementById("planets").value;
 	const newWeight = calculateWeight(userWeight,planetName);
         const result = "If you were on "+planetName+", you would weigh "+newWeight.toFixed(2) + "lbs!";
 	document.getElementById("output").innerHTML = result;
+};
+
+function addCustom() {
+        const planetName = document.getElementById("new-planet-name").value;
+        const weightMultiplier = document.getElementById("new-planet-multiplier").value;
+        planets.push([planetName,Number(weightMultiplier)]);
+        populateDropdown();
 };
