@@ -26,14 +26,14 @@
     </div>
     <div class="centre">
       <p id="output"></p>
-      <button id="calculate-button" type="button" form="main-input" onclick=handleClickEvent(event)>Calculate</button>
+      <button id="calculate-button" type="button" form="main-input" onclick=handleClickEvent()>Calculate</button>
     </div>
     <div>
       <form id="custom-planet">
         <input id="reveal-form" type="checkbox"><label for="reveal-form">Add Custom Planet?</label>
         <input id="new-planet-name" class="hide" type="text" maxlength="16" placeholder="Planet Name" required>
         <input id="new-planet-multiplier" class="hide" type="text" inputmode="numeric" pattern="^(\d+(\.\d{1,2})?|\.\d{1,2})$" title="Numbers & Decimals Only" maxlength="10" placeholder="Weight Multiplier" required>
-        <button id="add-button" class="hide" type="submit">Add</button>
+        <button id="add-button" class="hide" type="button" onclick=addCustom()>Add</button>
       </form>
     </div>
   </div>
